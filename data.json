@@ -1,0 +1,224 @@
+[
+    {
+        "title": "Tacos",
+        "content": "Tacos, the epitome of Mexican street food, have conquered the hearts and taste buds of food enthusiasts worldwide. These simple yet exquisite tortilla-wrapped creations offer a culinary journey like no other. From the rich history of indigenous origins to today's diverse and innovative fillings, tacos are a universal symbol of flavor and tradition, uniting people through their shared love for this iconic dish. Whether you're a carnivore or a vegetarian, a lover of spice or favoring mild flavors, the world of tacos welcomes all on a delicious adventure, one bite at a time.",
+        "postTime": "2023-10-18T08:00:00Z",
+        "author": "6547b4486eb25a9d1135069b",
+        "comments": [
+            {
+                "content": "Comment 1 for the first post.",
+                "postTime": "2023-10-18T08:30:00Z",
+                "author": "6547b4486eb25a9d1135069b",
+                "likes": []
+            }
+        ],
+        "image": "mexican_tacos.jpg",
+        "categories": "Mexican Food",
+        "likes": []
+    },
+    {
+      "title": "Burrito",
+      "content": "Burritos, the beloved hand-held feasts, have earned their place in the pantheon of world cuisines. Originating in Mexico, these flavor-packed creations have taken the global culinary scene by storm. The secret to their allure lies in their versatility, as burritos effortlessly embrace diverse fillings, from succulent meats to fresh veggies and everything in between. Rolled tightly in a warm tortilla, they offer a delightful explosion of flavors and textures with each bite. The burrito, a symbol of comfort and satiety, caters to a myriad of taste preferences, making it a universal favorite that unites food lovers across the globe in their quest for savory satisfaction.",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "mexican_burrito.jpg",
+      "categories": "Mexican Food",
+      "likes": []
+    },
+    {
+      "title": "Nachos",
+      "content": "Nachos, the ultimate crowd-pleaser, have transcended their humble origins as a simple snack and evolved into a cherished culinary phenomenon. These crunchy, cheesy delights, believed to have been invented in the vibrant border town of Piedras Negras, Mexico, have become a global sensation. Nachos are more than just tortilla chips smothered in gooey cheese; they are a canvas for creativity and indulgence. Toppings range from classic jalapeños and sour cream to inventive combinations like spicy ground beef, fresh guacamole, and zesty salsa. Each chip carries the promise of a flavor explosion that satisfies both the craving for comfort food and the thrill of culinary adventure. Whether enjoyed at a sports game, movie night, or in a gourmet setting, nachos are a timeless symbol of pure, unadulterated fun in the world of food.",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "mexican_nachos.jpg",
+      "categories": "Mexican Food",
+      "likes": []
+    },
+    {
+      "title": "Quesdilla",
+      "content": "Quesadillas, a beloved fixture in Mexican cuisine, offer a delightful medley of flavors and textures. These folded tortillas, filled with oozy, melted cheese, and an array of savory ingredients, bring comfort and simplicity to every bite. Whether you prefer the classic combination of cheese and seasoned chicken or the more adventurous blend of spinach, mushrooms, and goat cheese, quesadillas are endlessly customizable. They are the ultimate canvas for culinary creativity. Grilled to a crispy perfection, quesadillas cater to both casual snacking and hearty meals, making them a versatile and universally cherished dish. With their warm, cheesy embrace, quesadillas bridge cultures and culinary preferences, leaving a lasting imprint on the world's gastronomic landscape.",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "mexican_quesdilla.jpg",
+      "categories": "Mexican Food",
+      "likes": []
+    },
+    {
+      "title": "Pizza",
+      "content": "Pizza, a universal favorite, needs no introduction. With its origins in Italy, this culinary marvel has transcended borders to become a global sensation. A perfect harmony of flavors, it boasts a crispy crust, a rich tomato sauce, and an artful blend of toppings. From classic margheritas to innovative creations, pizza caters to diverse palates. Its convenience and shareable nature make it an unbeatable choice for gatherings. One bite and you're transported to a world of gastronomic delight. Whether enjoyed in a cozy pizzeria or delivered to your doorstep, pizza's allure remains unbeatable.",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "italian_pizza.jpg",
+      "categories": "Italian Food",
+      "likes": []
+    },
+    {
+      "title": "Pasta",
+      "content": "Pasta, the embodiment of comfort food, is cherished worldwide. Its versatility allows for endless culinary exploration. From creamy carbonara to zesty marinara, pasta caters to various taste preferences. Boil, toss, savor - an eternal love story in three simple steps.",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "italian_pasta.jpg",
+      "categories": "Italian Food",
+      "likes": []
+    },
+    {
+      "title": "Lasagna",
+      "content": "Lasagna, an edible work of art, boasts layers of rich flavors. With sheets of pasta, savory meat, and creamy béchamel, it's a mouthwatering symphony. Baked to perfection, lasagna's allure lies in its heartwarming layers of cheesy, saucy, and satisfying goodness.",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "italian_lasagna.jpg",
+      "categories": "Italian Food",
+      "likes": []
+    },
+    {
+      "title": "Spaghetti",
+      "content": "Spaghetti, the symbol of Italian cuisine, captivates with its simplicity. Long, slender strands enrobed in rich sauces form the foundation of countless exquisite dishes. A culinary journey that proves less can be so much more.",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "italian_spagetti.jpg",
+      "categories": "Italian Food",
+      "likes": []
+    },
+    {
+      "title": "Samosa",
+      "content": "Samosa, India's cherished street food, boasts a crispy exterior embracing a spicy potato filling. This triangular delight, often paired with mint chutney, tantalizes taste buds across the globe, offering a delightful blend of textures and flavors.  ",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "indian_samosa.jpg",
+      "categories": "Indian Food",
+      "likes": []
+    },
+    {
+      "title": "Dosa",
+      "content": "Crispy, paper-thin, and golden-brown, the South Indian dosa is a culinary masterpiece. With its enticing aroma and a myriad of flavorful fillings, it's a true delight for food enthusiasts. Served with chutney and sambar, dosa is an irresistible, age-old Indian favorite.",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "indian_dosa.jpg",
+      "categories": "Indian Food",
+      "likes": []
+    },
+    {
+      "title": "Punjabi",
+      "content": "Punjabi cuisine is a symphony of bold flavors and spices, celebrated for its rich curries, like butter chicken, and warm naan bread. The marriage of aromatic herbs and hearty dishes makes it an enticing culinary journey you won't want to miss.",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "indian_punjabi.jpg",
+      "categories": "Indian Food",
+      "likes": []
+    },
+    {
+      "title": "Momos",
+      "content": "Momos, an Asian delight, are bite-sized parcels filled with flavor. These steamed dumplings offer a delightful blend of spices and textures, perfect for dipping in tangy sauces. A sensational street food treat!",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "chinese_momos.jpg",
+      "categories": "Chinese Food",
+      "likes": []
+    },
+    {
+      "title": "Sushi",
+      "content": "Sushi, a Japanese art form, combines fresh fish, seasoned rice, and a dash of wasabi for a tantalizing bite-sized experience. From delicate sashimi to creative rolls, it's a symphony of flavors and textures on your palate. Unleash your inner foodie and embark on a sushi adventure!",
+      "postTime": "2023-10-18T08:00:00Z",
+      "author": "6547b4486eb25a9d1135069b",
+      "comments": [
+        {
+          "content": "Comment 1 for the first post.",
+          "postTime": "2023-10-18T08:30:00Z",
+          "author": "6547b4486eb25a9d1135069b",
+          "likes": []
+        }
+      ],
+      "image": "chinese_sushi.jpg",
+      "categories": "Chinese Food",
+      "likes": []
+    }
+]
+   
