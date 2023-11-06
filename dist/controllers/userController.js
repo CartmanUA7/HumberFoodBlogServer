@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const Users_1 = require("../models/Users");
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,7 +27,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!user) {
             return res.status(400).json({ errors: "invalid credentials" });
         }
-        const isMatch = yield bcrypt_1.default.compare(password, user.password);
+        const isMatch = yield bcryptjs_1.default.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ errors: "invalid credentials 2" });
         }
@@ -63,8 +63,8 @@ const addNewUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const salt = yield bcrypt_1.default.genSalt(10);
-        let newPassword = yield bcrypt_1.default.hash(req.body.password, salt);
+        const salt = yield bcryptjs_1.default.genSalt(10);
+        let newPassword = yield bcryptjs_1.default.hash(req.body.password, salt);
         yield Users_1.User.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -119,8 +119,8 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         user.email = email || user.email;
         if (password) {
             // Hash and update the password
-            const salt = yield bcrypt_1.default.genSalt(10);
-            const newPassword = yield bcrypt_1.default.hash(password, salt);
+            const salt = yield bcryptjs_1.default.genSalt(10);
+            const newPassword = yield bcryptjs_1.default.hash(password, salt);
             user.password = newPassword;
         }
         yield user.save();
