@@ -115,13 +115,13 @@ const newPost = async (req: Request, res: Response) => {
     if (savedPost) {
       res.status(200).json(savedPost);
     } else {
-      deleteImage(file.path);
+      //deleteImage(file.path);
       res.status(500).send("Server error");
     }
   } catch (err) {
     const e = err as Error;
     console.log(e);
-    deleteImage(file.path);
+    //deleteImage(file.path);
     if (e.message.startsWith("E11000")) {
       return res.status(400).send("Title already exists");
     }
