@@ -2,7 +2,7 @@
   "name": "project-server-blog-app-team",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "./dist/server.js",
   "scripts": {
     "build": "npx tsc",
     "start": "node ./dist/server.js",

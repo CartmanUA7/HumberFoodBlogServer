@@ -8,7 +8,7 @@ const userRouter = require('./routes/userRoutes');
 const postRouter = require('./routes/postRoutes');
 
 const app = express();
-const port = process.env.PORT;
+const port = 4000;
 //app.use('/foodImages', express.static(path.join(__dirname, 'foodImages')));
 app.use('/foodImages', express.static('foodImages'));
 app.post('/insertData', async (req, res) => {
