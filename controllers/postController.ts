@@ -5,6 +5,7 @@ import { JwtPayload } from "jsonwebtoken";
 import mongoose from "mongoose";
 import * as fs from "fs";
 import { User } from "../models/Users";
+import { put } from "@vercel/blob";
 
 interface MultipartRequest extends AuthRequest {
   files: {
@@ -93,6 +94,10 @@ const newPost = async (req: Request, res: Response) => {
 
   const file = multipartRequest.files.productImage;
   const fileName = file.path.split("\\")[1];
+
+  await put(fileName, multipartRequest.body, {
+    access: "public",
+  });
 
   try {
     const post = new Post({
