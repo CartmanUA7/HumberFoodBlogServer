@@ -14,7 +14,7 @@ router.get("/getPost/:postId", postController.getPost);
 router.post(
   "/newPost",
   authMiddleware,
-  multipartyMiddleware,
+  //multipartyMiddleware,
   [
     check("title", "Please enter title").not().isEmpty(),
     check("content", "Please enter content").not().isEmpty(),
