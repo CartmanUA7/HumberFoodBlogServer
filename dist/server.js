@@ -21,7 +21,7 @@ const path_1 = __importDefault(require("path"));
 const userRouter = require('./routes/userRoutes');
 const postRouter = require('./routes/postRoutes');
 const app = (0, express_1.default)();
-const port = process.env.PORT;
+const port = 4000;
 //app.use('/foodImages', express.static(path.join(__dirname, 'foodImages')));
 app.use('/foodImages', express_1.default.static('foodImages'));
 app.post('/insertData', (req, res) => __awaiter(void 0, void 0, void 0, function* () {

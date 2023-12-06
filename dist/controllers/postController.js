@@ -94,18 +94,22 @@ const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //const multipartRequest = req as MultipartRequest;
     const multipartRequest = req;
     const { title, content, categories } = req.body;
-    const token = multipartRequest.token;
-    const file = multipartRequest.files.productImage;
-    const fileName = file.path.split("\\")[1];
+    //const token = multipartRequest.token as JwtPayload;
+    // const file = multipartRequest.files.productImage;
+    // const fileName = file.path.split("\\")[1];
+    // await put(fileName, multipartRequest.body.productImage, {
+    //   access: "public",
+    // });
     try {
         const post = new Posts_1.Post({
-            author: token.user.id,
+            author: '654a41e34a16d0da993aaeac',
             title,
             content,
             comments: [],
-            image: fileName,
+            image: 'fileName',
             categories,
             likes: []
         });
@@ -114,14 +118,14 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(200).json(savedPost);
         }
         else {
-            deleteImage(file.path);
+            //deleteImage(file.path);
             res.status(500).send("Server error");
         }
     }
     catch (err) {
         const e = err;
         console.log(e);
-        deleteImage(file.path);
+        //deleteImage(file.path);
         if (e.message.startsWith("E11000")) {
             return res.status(400).send("Title already exists");
         }
