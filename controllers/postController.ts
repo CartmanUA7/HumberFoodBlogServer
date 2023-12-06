@@ -87,7 +87,8 @@ const getPost = async (req: Request, res: Response) => {
 };
 
 const newPost = async (req: Request, res: Response) => {
-  const multipartRequest = req as MultipartRequest;
+  //const multipartRequest = req as MultipartRequest;
+  const multipartRequest = req as AuthRequest;
 
   const { title, content, categories } = req.body;
   const token = multipartRequest.token as JwtPayload;
