@@ -95,7 +95,7 @@ const newPost = async (req: Request, res: Response) => {
   const file = multipartRequest.files.productImage;
   const fileName = file.path.split("\\")[1];
 
-  await put(fileName, multipartRequest.body, {
+  await put(fileName, multipartRequest.body.productImage, {
     access: "public",
   });
 
