@@ -92,8 +92,8 @@ const newPost = async (req: Request, res: Response) => {
   const { title, content, categories } = req.body;
   const token = multipartRequest.token as JwtPayload;
 
-  const file = multipartRequest.files.productImage;
-  const fileName = file.path.split("\\")[1];
+  // const file = multipartRequest.files.productImage;
+  // const fileName = file.path.split("\\")[1];
 
   // await put(fileName, multipartRequest.body.productImage, {
   //   access: "public",
@@ -105,7 +105,7 @@ const newPost = async (req: Request, res: Response) => {
       title,
       content,
       comments: [],
-      image: fileName,
+      image: 'fileName',
       categories,
       likes: []
     });
