@@ -91,7 +91,7 @@ const newPost = async (req: Request, res: Response) => {
 
   const { title, content, categories } = req.body;
   const token = multipartRequest.token as JwtPayload;
-
+  console.log(req.body);
   const file = multipartRequest.files.productImage;
   const fileName = file.path.split("\\")[1];
 
@@ -109,7 +109,7 @@ const newPost = async (req: Request, res: Response) => {
       categories,
       likes: [],
     });
-
+    console.log(post);
     const savedPost = await post.save();
 
     if (savedPost) {

@@ -97,6 +97,7 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const multipartRequest = req;
     const { title, content, categories } = req.body;
     const token = multipartRequest.token;
+    console.log(req.body);
     const file = multipartRequest.files.productImage;
     const fileName = file.path.split("\\")[1];
     // await put(fileName, multipartRequest.body.productImage, {
@@ -112,6 +113,7 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             categories,
             likes: [],
         });
+        console.log(post);
         const savedPost = yield post.save();
         if (savedPost) {
             res.status(200).json(savedPost);

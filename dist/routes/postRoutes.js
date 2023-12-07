@@ -11,7 +11,9 @@ const multiparty = require('connect-multiparty'), multipartyMiddleware = multipa
 const router = express_1.default.Router();
 router.get("/getPosts", postController_1.default.getPosts);
 router.get("/getPost/:postId", postController_1.default.getPost);
-router.post("/newPost", authMiddleware, multipartyMiddleware, [
+router.post("/newPost", authMiddleware, 
+//multipartyMiddleware,
+[
     (0, express_validator_1.check)("title", "Please enter title").not().isEmpty(),
     (0, express_validator_1.check)("content", "Please enter content").not().isEmpty(),
     (0, express_validator_1.check)("categories", "Please enter category").not().isEmpty(),
