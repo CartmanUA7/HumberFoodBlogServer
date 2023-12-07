@@ -25,7 +25,7 @@ router.post(
   userController.addNewUser
 );
 
-router.post(
+router.put(
   "/update",
   [
     check("firstName", "Please enter you first name").not().isEmpty(),

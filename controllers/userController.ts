@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { User } from "../models/Users";
 
@@ -54,7 +54,34 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
+// const addNewUser = async (req: Request, res: Response) => {
+//   console.log("Request Payload:", req.body);
+//   try {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       return res.status(400).json({ errors: errors.array() });
+//     }
+
+//     const salt = await bcrypt.genSalt(10);
+//     let newPassword = await bcrypt.hash(req.body.password, salt);
+//     await User.create({
+//       firstName: req.body.firstName,
+//       lastName: req.body.lastName,
+//       email: req.body.email.toLowerCase(),
+//       password: newPassword,
+//     });
+
+//     res.status(200).send("User created successfully");
+//   } catch (err) {
+//     const e = err as Error;
+//     console.log(e.message);
+//     return res.status(500).send("Server error");
+//   }
+// };
+
 const addNewUser = async (req: Request, res: Response) => {
+  console.log("Request Payload:", req.body);
+
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -63,14 +90,37 @@ const addNewUser = async (req: Request, res: Response) => {
 
     const salt = await bcrypt.genSalt(10);
     let newPassword = await bcrypt.hash(req.body.password, salt);
-    await User.create({
+    const user = await User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email.toLowerCase(),
       password: newPassword,
     });
 
-    res.status(200).send("User created successfully");
+    const payload = {
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET as jwt.Secret,
+      { expiresIn: 36000 },
+      (err, token) => {
+        if (err) throw err;
+        res.status(200).json({
+          token,
+          id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        });
+      }
+    );
   } catch (err) {
     const e = err as Error;
     console.log(e.message);

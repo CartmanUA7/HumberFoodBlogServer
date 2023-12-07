@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
-const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const Users_1 = require("../models/Users");
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,7 +27,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!user) {
             return res.status(400).json({ errors: "invalid credentials" });
         }
-        const isMatch = yield bcryptjs_1.default.compare(password, user.password);
+        const isMatch = yield bcrypt_1.default.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ errors: "invalid credentials 2" });
         }
@@ -57,21 +57,62 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.status(500).send("Server error");
     }
 });
+// const addNewUser = async (req: Request, res: Response) => {
+//   console.log("Request Payload:", req.body);
+//   try {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       return res.status(400).json({ errors: errors.array() });
+//     }
+//     const salt = await bcrypt.genSalt(10);
+//     let newPassword = await bcrypt.hash(req.body.password, salt);
+//     await User.create({
+//       firstName: req.body.firstName,
+//       lastName: req.body.lastName,
+//       email: req.body.email.toLowerCase(),
+//       password: newPassword,
+//     });
+//     res.status(200).send("User created successfully");
+//   } catch (err) {
+//     const e = err as Error;
+//     console.log(e.message);
+//     return res.status(500).send("Server error");
+//   }
+// };
 const addNewUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("Request Payload:", req.body);
     try {
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const salt = yield bcryptjs_1.default.genSalt(10);
-        let newPassword = yield bcryptjs_1.default.hash(req.body.password, salt);
-        yield Users_1.User.create({
+        const salt = yield bcrypt_1.default.genSalt(10);
+        let newPassword = yield bcrypt_1.default.hash(req.body.password, salt);
+        const user = yield Users_1.User.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email.toLowerCase(),
             password: newPassword,
         });
-        res.status(200).send("User created successfully");
+        const payload = {
+            user: {
+                id: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+            },
+        };
+        jsonwebtoken_1.default.sign(payload, process.env.JWT_SECRET, { expiresIn: 36000 }, (err, token) => {
+            if (err)
+                throw err;
+            res.status(200).json({
+                token,
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+            });
+        });
     }
     catch (err) {
         const e = err;
@@ -119,8 +160,8 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         user.email = email || user.email;
         if (password) {
             // Hash and update the password
-            const salt = yield bcryptjs_1.default.genSalt(10);
-            const newPassword = yield bcryptjs_1.default.hash(password, salt);
+            const salt = yield bcrypt_1.default.genSalt(10);
+            const newPassword = yield bcrypt_1.default.hash(password, salt);
             user.password = newPassword;
         }
         yield user.save();

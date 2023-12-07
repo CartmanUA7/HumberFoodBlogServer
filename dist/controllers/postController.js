@@ -94,26 +94,24 @@ const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //const multipartRequest = req as MultipartRequest;
     const multipartRequest = req;
     const { title, content, categories } = req.body;
     const token = multipartRequest.token;
-    // const file = multipartRequest.files.productImage;
-    // const fileName = file.path.split("\\")[1];
+    const file = multipartRequest.files.productImage;
+    const fileName = file.path.split("\\")[1];
     // await put(fileName, multipartRequest.body.productImage, {
     //   access: "public",
     // });
     try {
         const post = new Posts_1.Post({
             author: token.user.id,
-            title: title,
-            content: content,
+            title,
+            content,
             comments: [],
-            image: "fileName",
-            categories: categories,
+            image: fileName,
+            categories,
             likes: [],
         });
-        console.log(post);
         const savedPost = yield post.save();
         if (savedPost) {
             res.status(200).json(savedPost);

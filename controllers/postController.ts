@@ -87,14 +87,13 @@ const getPost = async (req: Request, res: Response) => {
 };
 
 const newPost = async (req: Request, res: Response) => {
-  //const multipartRequest = req as MultipartRequest;
-  const multipartRequest = req as AuthRequest;
+  const multipartRequest = req as MultipartRequest;
 
   const { title, content, categories } = req.body;
   const token = multipartRequest.token as JwtPayload;
 
-  // const file = multipartRequest.files.productImage;
-  // const fileName = file.path.split("\\")[1];
+  const file = multipartRequest.files.productImage;
+  const fileName = file.path.split("\\")[1];
 
   // await put(fileName, multipartRequest.body.productImage, {
   //   access: "public",
@@ -103,15 +102,13 @@ const newPost = async (req: Request, res: Response) => {
   try {
     const post = new Post({
       author: token.user.id,
-      title: title,
-      content: content,
+      title,
+      content,
       comments: [],
-      image: "fileName",
-      categories: categories,
+      image: fileName,
+      categories,
       likes: [],
     });
-
-    console.log(post);
 
     const savedPost = await post.save();
 

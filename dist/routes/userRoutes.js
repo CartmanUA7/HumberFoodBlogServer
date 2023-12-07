@@ -18,7 +18,7 @@ router.post("/signup", [
     (0, express_validator_1.check)("email", "Please enter valid email").isEmail(),
     (0, express_validator_1.check)("password", "Please enter password").not().isEmpty(),
 ], userController_1.default.addNewUser);
-router.post("/update", [
+router.put("/update", [
     (0, express_validator_1.check)("firstName", "Please enter you first name").not().isEmpty(),
     (0, express_validator_1.check)("lastName", "Please enter you last name").not().isEmpty(),
     (0, express_validator_1.check)("email", "Please enter valid email").isEmail(),
