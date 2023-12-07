@@ -97,7 +97,7 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //const multipartRequest = req as MultipartRequest;
     const multipartRequest = req;
     const { title, content, categories } = req.body;
-    //const token = multipartRequest.token as JwtPayload;
+    const token = multipartRequest.token;
     // const file = multipartRequest.files.productImage;
     // const fileName = file.path.split("\\")[1];
     // await put(fileName, multipartRequest.body.productImage, {
@@ -105,13 +105,13 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // });
     try {
         const post = new Posts_1.Post({
-            author: '654a41e34a16d0da993aaeac',
-            title,
-            content,
+            author: token.user.id,
+            title: title,
+            content: content,
             comments: [],
-            image: 'fileName',
-            categories,
-            likes: []
+            image: "fileName",
+            categories: categories,
+            likes: [],
         });
         console.log(post);
         const savedPost = yield post.save();

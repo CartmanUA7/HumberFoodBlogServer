@@ -91,7 +91,7 @@ const newPost = async (req: Request, res: Response) => {
   const multipartRequest = req as AuthRequest;
 
   const { title, content, categories } = req.body;
-  //const token = multipartRequest.token as JwtPayload;
+  const token = multipartRequest.token as JwtPayload;
 
   // const file = multipartRequest.files.productImage;
   // const fileName = file.path.split("\\")[1];
@@ -102,13 +102,13 @@ const newPost = async (req: Request, res: Response) => {
 
   try {
     const post = new Post({
-      author: '654a41e34a16d0da993aaeac',//token.user.id,
-      title,
-      content,
+      author: token.user.id,
+      title: title,
+      content: content,
       comments: [],
-      image: 'fileName',
-      categories,
-      likes: []
+      image: "fileName",
+      categories: categories,
+      likes: [],
     });
 
     console.log(post);
