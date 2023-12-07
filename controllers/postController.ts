@@ -5,7 +5,6 @@ import { JwtPayload } from "jsonwebtoken";
 import mongoose from "mongoose";
 import * as fs from "fs";
 import { User } from "../models/Users";
-import { put } from "@vercel/blob";
 
 interface MultipartRequest extends AuthRequest {
   files: {
@@ -87,37 +86,34 @@ const getPost = async (req: Request, res: Response) => {
 };
 
 const newPost = async (req: Request, res: Response) => {
-  // const multipartRequest = req as MultipartRequest;
+  const multipartRequest = req as MultipartRequest;
 
-  // const { title, content, categories, productImage } = req.body;
-  // const token = multipartRequest.token as JwtPayload;
-  // console.log(req.body);
-  // const file = multipartRequest.files.productImage;
-  // const fileName = file.path.split("\\")[1];
+  const { title, content, categories, productImage } = req.body;
+  const token = multipartRequest.token as JwtPayload;
+  console.log(req.body);
+  const file = multipartRequest.files.productImage;
+  const fileName = file.path.split("\\")[1];
 
-  await put('filename', req.body, {
-    access: "public",
-  });
 res.status(200);
   try {
-    // const post = new Post({
-    //   author: token.user.id,
-    //   title,
-    //   content,
-    //   comments: [],
-    //   image: 'fileName',
-    //   categories,
-    //   likes: [],
-    // });
-    // console.log(post);
-    // const savedPost = await post.save();
+    const post = new Post({
+      author: token.user.id,
+      title,
+      content,
+      comments: [],
+      image: 'fileName',
+      categories,
+      likes: [],
+    });
+    console.log(post);
+    const savedPost = await post.save();
 
-    // if (savedPost) {
-    //   res.status(200).json(savedPost);
-    // } else {
-    //   //deleteImage(file.path);
-    //   res.status(500).send("Server error");
-    // }
+    if (savedPost) {
+      res.status(200).json(savedPost);
+    } else {
+      //deleteImage(file.path);
+      res.status(500).send("Server error");
+    }
   } catch (err) {
     const e = err as Error;
     console.log(e);
