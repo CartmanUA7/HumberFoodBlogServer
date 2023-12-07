@@ -95,34 +95,34 @@ const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const multipartRequest = req;
-    const { title, content, categories, productImage } = req.body;
-    const token = multipartRequest.token;
-    console.log(req.body);
+    // const multipartRequest = req as MultipartRequest;
+    // const { title, content, categories, productImage } = req.body;
+    // const token = multipartRequest.token as JwtPayload;
+    // console.log(req.body);
     // const file = multipartRequest.files.productImage;
     // const fileName = file.path.split("\\")[1];
-    yield (0, blob_1.put)(productImage.name, productImage, {
+    yield (0, blob_1.put)('filename', req.body, {
         access: "public",
     });
+    res.status(200);
     try {
-        const post = new Posts_1.Post({
-            author: token.user.id,
-            title,
-            content,
-            comments: [],
-            image: 'fileName',
-            categories,
-            likes: [],
-        });
-        console.log(post);
-        const savedPost = yield post.save();
-        if (savedPost) {
-            res.status(200).json(savedPost);
-        }
-        else {
-            //deleteImage(file.path);
-            res.status(500).send("Server error");
-        }
+        // const post = new Post({
+        //   author: token.user.id,
+        //   title,
+        //   content,
+        //   comments: [],
+        //   image: 'fileName',
+        //   categories,
+        //   likes: [],
+        // });
+        // console.log(post);
+        // const savedPost = await post.save();
+        // if (savedPost) {
+        //   res.status(200).json(savedPost);
+        // } else {
+        //   //deleteImage(file.path);
+        //   res.status(500).send("Server error");
+        // }
     }
     catch (err) {
         const e = err;
