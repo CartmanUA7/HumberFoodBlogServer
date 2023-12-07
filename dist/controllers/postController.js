@@ -95,7 +95,7 @@ const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const multipartRequest = req;
-    const { title, content, categories, productImage } = req.body;
+    const { title, content, categories } = req.body;
     const token = multipartRequest.token;
     console.log(req.body);
     const file = multipartRequest.files.productImage;
