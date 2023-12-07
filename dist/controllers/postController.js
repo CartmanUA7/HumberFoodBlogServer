@@ -39,6 +39,7 @@ const Posts_1 = require("../models/Posts");
 const mongoose_1 = __importDefault(require("mongoose"));
 const fs = __importStar(require("fs"));
 const Users_1 = require("../models/Users");
+const blob_1 = require("@vercel/blob");
 const deleteImage = (path) => {
     fs.stat(path, (err) => {
         if (err) {
@@ -95,14 +96,14 @@ const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const multipartRequest = req;
-    const { title, content, categories } = req.body;
+    const { title, content, categories, productImage } = req.body;
     const token = multipartRequest.token;
     console.log(req.body);
     // const file = multipartRequest.files.productImage;
     // const fileName = file.path.split("\\")[1];
-    // await put(fileName, multipartRequest.body.productImage, {
-    //   access: "public",
-    // });
+    yield (0, blob_1.put)(productImage.name, productImage, {
+        access: "public",
+    });
     try {
         const post = new Posts_1.Post({
             author: token.user.id,
