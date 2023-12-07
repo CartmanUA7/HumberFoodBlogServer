@@ -98,8 +98,8 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, content, categories } = req.body;
     const token = multipartRequest.token;
     console.log(req.body);
-    const file = multipartRequest.files.productImage;
-    const fileName = file.path.split("\\")[1];
+    // const file = multipartRequest.files.productImage;
+    // const fileName = file.path.split("\\")[1];
     // await put(fileName, multipartRequest.body.productImage, {
     //   access: "public",
     // });
@@ -109,7 +109,7 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             title,
             content,
             comments: [],
-            image: fileName,
+            image: 'fileName',
             categories,
             likes: [],
         });
