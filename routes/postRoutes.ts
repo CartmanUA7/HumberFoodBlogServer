@@ -13,13 +13,13 @@ router.get("/getPost/:postId", postController.getPost);
 
 router.post(
   "/newPost",
-  //authMiddleware,
+  authMiddleware,
   //multipartyMiddleware,
-//   [
-//     check("title", "Please enter title").not().isEmpty(),
-//     check("content", "Please enter content").not().isEmpty(),
-//     check("categories", "Please enter category").not().isEmpty(),
-//   ],
+  [
+    check("title", "Please enter title").not().isEmpty(),
+    check("content", "Please enter content").not().isEmpty(),
+    check("categories", "Please enter category").not().isEmpty(),
+  ],
   postController.newPost
 );
 

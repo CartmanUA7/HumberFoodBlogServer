@@ -113,6 +113,7 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             categories,
             likes: []
         });
+        console.log(post);
         const savedPost = yield post.save();
         if (savedPost) {
             res.status(200).json(savedPost);

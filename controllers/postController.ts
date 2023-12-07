@@ -111,6 +111,8 @@ const newPost = async (req: Request, res: Response) => {
       likes: []
     });
 
+    console.log(post);
+
     const savedPost = await post.save();
 
     if (savedPost) {
