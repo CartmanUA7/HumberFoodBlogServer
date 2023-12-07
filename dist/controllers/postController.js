@@ -1,27 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,15 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Posts_1 = require("../models/Posts");
 const mongoose_1 = __importDefault(require("mongoose"));
-const fs = __importStar(require("fs"));
 const Users_1 = require("../models/Users");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+});
 const deleteImage = (path) => {
-    fs.stat(path, (err) => {
-        if (err) {
-            return console.error(err);
-        }
-        fs.unlink(path, () => { });
-    });
+    cloudinary.uploader.destroy(path);
 };
 const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -97,17 +74,14 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const multipartRequest = req;
     const { title, content, categories } = req.body;
     const token = multipartRequest.token;
-    console.log(req.body);
-    const file = multipartRequest.files.productImage;
-    const fileName = file.path.split("\\")[1];
-    res.status(200);
+    const file = multipartRequest.file;
     try {
         const post = new Posts_1.Post({
             author: token.user.id,
             title,
             content,
             comments: [],
-            image: 'fileName',
+            image: file.path,
             categories,
             likes: [],
         });
@@ -117,14 +91,18 @@ const newPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(200).json(savedPost);
         }
         else {
-            //deleteImage(file.path);
+            const filePathParts = file.path.split("/");
+            const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+            deleteImage(`FoodBlog/${fileName}`);
             res.status(500).send("Server error");
         }
     }
     catch (err) {
         const e = err;
         console.log(e);
-        //deleteImage(file.path);
+        const filePathParts = file.path.split("/");
+        const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+        deleteImage(`FoodBlog/${fileName}`);
         if (e.message.startsWith("E11000")) {
             return res.status(400).send("Title already exists");
         }
@@ -136,11 +114,7 @@ const editPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const postId = multipartRequest.params.postId;
     const { title, content, categories } = multipartRequest.body;
     const token = multipartRequest.token;
-    let fileName = "";
-    const file = multipartRequest.files.productImage;
-    if (file) {
-        fileName = file.path.split("\\")[1];
-    }
+    const file = multipartRequest.file;
     try {
         let post = yield Posts_1.Post.findById(postId);
         if (post == null) {
@@ -155,24 +129,37 @@ const editPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         post.content = content;
         post.categories = categories;
         let oldImage = "";
-        if (fileName) {
+        if (file) {
             oldImage = post.image;
-            post.image = fileName;
+            post.image = file.path;
         }
         const updatedPost = yield post.save();
         if (updatedPost) {
-            deleteImage(`foodImages\\${oldImage}`);
+            if (oldImage) {
+                console.log(oldImage);
+                const filePathParts = oldImage.split("/");
+                const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+                deleteImage(`FoodBlog/${fileName}`);
+            }
             res.status(200).json(updatedPost);
         }
         else {
-            deleteImage(`foodImages\\${fileName}`);
+            if (file) {
+                const filePathParts = file.path.split("/");
+                const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+                deleteImage(`FoodBlog/${fileName}`);
+            }
             res.status(500).send("Server error");
         }
     }
     catch (err) {
         const e = err;
         console.log(e.message);
-        deleteImage(`foodImages\\${fileName}`);
+        if (file) {
+            const filePathParts = file.path.split("/");
+            const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+            deleteImage(`FoodBlog/${fileName}`);
+        }
         return res.status(500).send("Server error");
     }
 });
@@ -191,7 +178,10 @@ const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
         const result = yield Posts_1.Post.deleteOne({ _id: post._id });
         if (result.acknowledged) {
-            deleteImage(`foodImages\\${post.image}`);
+            const filePathParts = post.image.split("/");
+            const filePath = "FoodBlog/" +
+                filePathParts[filePathParts.length - 1].split(".")[0];
+            deleteImage(filePath);
             res.status(200).send("Post deleted successfully");
         }
         else {

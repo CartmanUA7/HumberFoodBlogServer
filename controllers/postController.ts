@@ -6,31 +6,30 @@ import mongoose from "mongoose";
 import * as fs from "fs";
 import { User } from "../models/Users";
 
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
 interface MultipartRequest extends AuthRequest {
-  files: {
-    productImage: {
-      fieldName: string;
-      originalFilename: string;
-      path: string;
-      headers: {
-        "content-disposition": string;
-        "content-type": string;
-      };
-      size: number;
-      name: string;
-      type: string;
+  file: {
+    fieldName: string;
+    originalFilename: string;
+    path: string;
+    headers: {
+      "content-disposition": string;
+      "content-type": string;
     };
+    size: number;
+    name: string;
+    type: string;
   };
 }
 
 const deleteImage = (path: string) => {
-  fs.stat(path, (err) => {
-    if (err) {
-      return console.error(err);
-    }
-
-    fs.unlink(path, () => {});
-  });
+  cloudinary.uploader.destroy(path);
 };
 
 const getPosts = async (req: Request, res: Response) => {
@@ -90,18 +89,15 @@ const newPost = async (req: Request, res: Response) => {
 
   const { title, content, categories } = req.body;
   const token = multipartRequest.token as JwtPayload;
-  console.log(req.body);
-  const file = multipartRequest.files.productImage;
-  const fileName = file.path.split("\\")[1];
+  const file = multipartRequest.file;
 
-res.status(200);
   try {
     const post = new Post({
       author: token.user.id,
       title,
       content,
       comments: [],
-      image: 'fileName',
+      image: file.path,
       categories,
       likes: [],
     });
@@ -111,13 +107,17 @@ res.status(200);
     if (savedPost) {
       res.status(200).json(savedPost);
     } else {
-      //deleteImage(file.path);
+      const filePathParts = file.path.split("/");
+      const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+      deleteImage(`FoodBlog/${fileName}`);
       res.status(500).send("Server error");
     }
   } catch (err) {
     const e = err as Error;
     console.log(e);
-    //deleteImage(file.path);
+    const filePathParts = file.path.split("/");
+    const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+    deleteImage(`FoodBlog/${fileName}`);
     if (e.message.startsWith("E11000")) {
       return res.status(400).send("Title already exists");
     }
@@ -131,12 +131,7 @@ const editPost = async (req: Request, res: Response) => {
   const postId = multipartRequest.params.postId;
   const { title, content, categories } = multipartRequest.body;
   const token = multipartRequest.token as JwtPayload;
-
-  let fileName = "";
-  const file = multipartRequest.files.productImage;
-  if (file) {
-    fileName = file.path.split("\\")[1];
-  }
+  const file = multipartRequest.file;
 
   try {
     let post = await Post.findById(postId);
@@ -156,24 +151,37 @@ const editPost = async (req: Request, res: Response) => {
     post.categories = categories;
 
     let oldImage = "";
-    if (fileName) {
+    if (file) {
       oldImage = post.image;
-      post.image = fileName;
+      post.image = file.path;
     }
 
     const updatedPost = await post.save();
 
     if (updatedPost) {
-      deleteImage(`foodImages\\${oldImage}`);
+      if (oldImage) {
+        console.log(oldImage);
+        const filePathParts = oldImage.split("/");
+        const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+        deleteImage(`FoodBlog/${fileName}`);
+      }
       res.status(200).json(updatedPost);
     } else {
-      deleteImage(`foodImages\\${fileName}`);
+      if (file) {
+        const filePathParts = file.path.split("/");
+        const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+        deleteImage(`FoodBlog/${fileName}`);
+      }
       res.status(500).send("Server error");
     }
   } catch (err) {
     const e = err as Error;
     console.log(e.message);
-    deleteImage(`foodImages\\${fileName}`);
+    if (file) {
+      const filePathParts = file.path.split("/");
+      const fileName = filePathParts[filePathParts.length - 1].split(".")[0];
+      deleteImage(`FoodBlog/${fileName}`);
+    }
     return res.status(500).send("Server error");
   }
 };
@@ -194,11 +202,14 @@ const deletePost = async (req: Request, res: Response) => {
       res.status(403).send("Access denied");
       return;
     }
-
+    
     const result = await Post.deleteOne({ _id: post._id });
 
     if (result.acknowledged) {
-      deleteImage(`foodImages\\${post.image}`);
+      const filePathParts = post.image.split("/");
+      const filePath = "FoodBlog/" +
+        filePathParts[filePathParts.length - 1].split(".")[0];
+      deleteImage(filePath);
       res.status(200).send("Post deleted successfully");
     } else {
       res.status(500).send("Server error");

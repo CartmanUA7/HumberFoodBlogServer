@@ -7,16 +7,18 @@ const express_1 = __importDefault(require("express"));
 const postController_1 = __importDefault(require("../controllers/postController"));
 const express_validator_1 = require("express-validator");
 const authMiddleware = require('../middlewares/authMiddleware');
-const multiparty = require('connect-multiparty'), multipartyMiddleware = multiparty({ uploadDir: './foodImages' });
+const { storage } = require("../storage/storage");
+const multer = require("multer");
+const upload = multer({ storage });
 const router = express_1.default.Router();
 router.get("/getPosts", postController_1.default.getPosts);
 router.get("/getPost/:postId", postController_1.default.getPost);
-router.post("/newPost", authMiddleware, multipartyMiddleware, [
+router.post("/newPost", authMiddleware, upload.single("productImage"), [
     (0, express_validator_1.check)("title", "Please enter title").not().isEmpty(),
     (0, express_validator_1.check)("content", "Please enter content").not().isEmpty(),
     (0, express_validator_1.check)("categories", "Please enter category").not().isEmpty(),
 ], postController_1.default.newPost);
-router.post("/editPost/:postId", authMiddleware, multipartyMiddleware, [
+router.post("/editPost/:postId", authMiddleware, upload.single("productImage"), [
     (0, express_validator_1.check)('title', 'Please enter title').not().isEmpty(),
     (0, express_validator_1.check)('content', 'Please enter content').not().isEmpty()
 ], postController_1.default.editPost);

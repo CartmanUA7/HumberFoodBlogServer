@@ -3,8 +3,10 @@ import postController from '../controllers/postController';
 import { check } from 'express-validator';
 
 const authMiddleware = require('../middlewares/authMiddleware');
-const multiparty = require('connect-multiparty'),
-multipartyMiddleware = multiparty({ uploadDir: './foodImages' });
+
+const { storage } = require("../storage/storage");
+const multer = require("multer");
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -14,7 +16,7 @@ router.get("/getPost/:postId", postController.getPost);
 router.post(
   "/newPost",
   authMiddleware,
-  multipartyMiddleware,
+  upload.single("productImage"),
   [
     check("title", "Please enter title").not().isEmpty(),
     check("content", "Please enter content").not().isEmpty(),
@@ -26,7 +28,7 @@ router.post(
 router.post(
     "/editPost/:postId",
     authMiddleware,
-    multipartyMiddleware,
+    upload.single("productImage"),
     [
         check('title', 'Please enter title').not().isEmpty(),
         check('content', 'Please enter content').not().isEmpty()
