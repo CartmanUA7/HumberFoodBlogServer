@@ -1,25 +1,30 @@
 # project-server-blog-app-team
 
-Project setup:
-1. npm install
-2. create .env file:
+# Hosted on https://foodblogserver.onrender.com/
+# Images stored on https://cloudinary.com
+# Environment variables setup:
+
+- Database
 ```
   DB_USERNAME=
   DB_PASSWORD=
   DB_DATABASE=
   DB_CLUSTER_ID=
+```
+
+- JWT token
+```
   JWT_SECRET=
 ```
 
-Project run:
-npm run dev
-
+- Cloudinary image storage
+```
+  CLOUD_NAME=
+  CLOUDINARY_KEY=
+  CLOUDINARY_SECRET= 
+```
 
 # Team Members:
-# Hardi Majmundar 
-# Aycan Lizor
-# Vasyl Marusiak
-
-
-# contains back end
-# contains models, controllers and routes
+- Hardi Majmundar 
+- Aycan Lizor
+- Vasyl Marusiak
